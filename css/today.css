@@ -1,0 +1,222 @@
+/* 드럼 출석부 — today.css : 오늘 화면 전용 스타일(.v-today 아래로 한정). 토큰·공용 클래스는 app.css. */
+
+/* ---------- 머리 ---------- */
+.v-today .td-top { gap: 8px 10px; }
+.v-today .td-title-wrap { display: flex; flex-direction: column; min-width: 0; }
+.v-today .td-title-wrap .topbar-title { flex: none; }
+.v-today .td-act { gap: 5px; padding: 0 10px; }
+.v-today .td-act-lbl { display: none; }
+@media (min-width: 400px) { .v-today .td-act-lbl { display: inline; } }
+
+.v-today .td-datebar { display: flex; align-items: center; gap: 2px; min-width: 0; }
+.v-today .td-nav { flex: none; color: var(--text); }
+.v-today .td-date {
+  position: relative; flex: 0 1 auto; min-width: 0;
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 44px; padding: 0 10px; border-radius: 12px;
+  font-size: 17px; font-weight: 750; letter-spacing: -.015em; cursor: pointer;
+  -webkit-user-select: none; user-select: none;
+}
+.v-today .td-date:active { background: var(--surface-2); }
+.v-today .td-date-main { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.v-today .td-date-ic { display: inline-flex; color: var(--text-3); flex: none; }
+.v-today .td-rel {
+  flex: none; padding: 2px 8px; border-radius: 999px; font-size: 12.5px; font-weight: 700;
+  background: var(--surface-2); color: var(--text-2);
+}
+.v-today .td-rel.on { background: var(--accent-soft); color: var(--accent); }
+.v-today .td-date-input {
+  position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+  opacity: 0; border: 0; margin: 0; padding: 0; font-size: 16px; cursor: pointer;
+  -webkit-appearance: none; appearance: none; background: transparent; color: transparent;
+}
+.v-today .td-date-input::-webkit-calendar-picker-indicator { position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.v-today .td-today-btn { margin-left: auto; flex: none; }
+
+/* 진행 막대 */
+.v-today .td-progress { display: flex; flex-direction: column; gap: 7px; padding: 2px 2px 2px; }
+.v-today .td-prog-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex-wrap: wrap; min-width: 0; }
+.v-today .td-prog-main { display: flex; align-items: baseline; gap: 2px; font-size: 14px; color: var(--text-2); white-space: nowrap; }
+.v-today .td-prog-main b { font-size: 20px; font-weight: 800; color: var(--text); letter-spacing: -.02em; }
+.v-today .td-prog-main b:first-of-type { color: var(--st-present-ink); }
+.v-today .td-prog-sep { margin: 0 4px; color: var(--text-3); }
+.v-today .td-prog-done {
+  display: inline-flex; align-items: center; gap: 3px; margin-left: 8px; align-self: center;
+  padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 700;
+  background: var(--ok-soft); color: var(--ok-ink);
+}
+.v-today .td-prog-bits { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 12.5px; color: var(--text-2); }
+.v-today .td-pc { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.v-today .td-progress .progress { height: 10px; }
+
+/* ---------- 본문 ---------- */
+.v-today .td-page { padding-top: 14px; }
+.v-today .td-page > * + * { margin-top: 14px; }
+.v-today .banner { position: relative; }
+.v-today .td-banner-x { flex: none; align-self: flex-start; margin: -8px -10px -8px -4px; color: inherit; opacity: .7; }
+
+/* 지금 안내 */
+.v-today .td-now { display: flex; flex-direction: column; gap: 8px; }
+.v-today .td-now-item {
+  display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; margin: 0;
+  padding: 10px 14px; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface); color: var(--text); text-align: left; font-size: 15px;
+  touch-action: manipulation; cursor: pointer;
+}
+.v-today .td-now-item:active { background: var(--surface-2); }
+.v-today .td-now-item > .ic { color: var(--text-3); }
+.v-today .td-now-item.running { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 0 1px var(--accent) inset; }
+.v-today .td-now-item.done { cursor: default; background: var(--ok-soft); border-color: transparent; color: var(--ok-ink); }
+.v-today .td-now-item.done > .ic { color: var(--ok-ink); }
+.v-today .td-now-lbl { flex: none; font-size: 13px; font-weight: 750; color: var(--text-2); }
+.v-today .td-now-item.running .td-now-lbl { color: var(--accent); }
+.v-today .td-now-item.done .td-now-lbl { color: inherit; }
+.v-today .td-now-what { flex: 1 1 auto; font-weight: 650; }
+.v-today .td-now-time { flex: none; font-size: 13.5px; font-weight: 700; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.v-today .td-now-item.running .td-now-time { color: var(--accent); }
+
+.v-today .td-live {
+  display: inline-block; flex: none; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 0 0 var(--accent-glow);
+  animation: td-live 1.6s ease-out infinite;
+}
+@keyframes td-live {
+  0% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  70% { box-shadow: 0 0 0 8px rgba(0,0,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
+}
+.v-today .td-live-badge { background: var(--accent); color: var(--accent-ink); gap: 6px; }
+.v-today .td-live-badge .td-live { width: 7px; height: 7px; background: var(--accent-ink); animation: none; }
+
+/* 수업 묶음 */
+.v-today .td-list { display: flex; flex-direction: column; gap: 14px; }
+.v-today .td-group {
+  position: relative; min-width: 0;
+  background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.v-today .td-group::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--tc, var(--line-strong));
+}
+.v-today .td-group.is-now { box-shadow: 0 0 0 2px var(--accent), var(--shadow); }
+.v-today .td-group.is-canceled::before {
+  background: repeating-linear-gradient(135deg, var(--st-canceled) 0 4px, transparent 4px 8px);
+}
+.v-today .td-group.is-canceled .td-g-title { text-decoration: line-through; color: var(--text-3); }
+.v-today .td-group.is-canceled .td-cards { opacity: .62; }
+.v-today .td-group.flash { animation: td-flash 1.1s ease-out; }
+@keyframes td-flash { 0% { box-shadow: 0 0 0 3px var(--accent), var(--shadow); } 100% { box-shadow: 0 0 0 0 rgba(0,0,0,0), var(--shadow); } }
+
+.v-today .td-g-head {
+  display: flex; align-items: center; gap: 12px; min-width: 0;
+  padding: 12px 6px 10px 18px;
+}
+.v-today .td-g-time { flex: none; width: 58px; }
+.v-today .td-g-start { font-size: 21px; font-weight: 800; letter-spacing: -.03em; line-height: 1.1; }
+.v-today .td-group.is-past .td-g-start { color: var(--text-2); }
+.v-today .td-group.is-now .td-g-start { color: var(--accent); }
+.v-today .td-g-dur { font-size: 12.5px; color: var(--text-3); font-weight: 600; margin-top: 1px; }
+.v-today .td-g-info { flex: 1 1 auto; min-width: 0; }
+.v-today .td-g-title { font-size: 16px; font-weight: 750; letter-spacing: -.015em; }
+.v-today .td-g-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin-top: 3px; font-size: 13px; color: var(--text-2); }
+.v-today .td-g-meta .badge { height: 22px; font-size: 12px; padding: 0 8px; }
+.v-today .td-meta { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.v-today .td-meta .ic { color: var(--text-3); }
+.v-today .td-g-count {
+  flex: none; padding: 3px 9px; border-radius: 999px;
+  background: var(--surface-2); color: var(--text-2); font-size: 13px; font-weight: 750;
+}
+.v-today .td-g-more { flex: none; color: var(--text-3); }
+.v-today .td-g-empty {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;
+  padding: 10px 14px 12px 18px; font-size: 14px; color: var(--text-3);
+}
+
+/* 학생 카드 */
+.v-today .td-cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 0 10px 12px 15px; }
+@media (min-width: 720px) {
+  .v-today .td-cards { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+}
+.v-today .td-card {
+  position: relative; display: flex; align-items: center; gap: 10px; min-width: 0; min-height: 64px;
+  padding: 8px 2px 8px 10px; border-radius: 12px;
+  background: var(--surface-2); border: 1.5px solid transparent;
+  cursor: pointer; touch-action: manipulation;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+  transition: transform .12s ease, background-color .15s, border-color .15s;
+}
+.v-today .td-card:active, .v-today .td-card.pressing { transform: scale(.985); }
+.v-today .td-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.v-today .td-card.st-present { background: var(--st-present-soft); }
+.v-today .td-card.st-late { background: var(--st-late-soft); }
+.v-today .td-card.st-absent { background: var(--st-absent-soft); }
+.v-today .td-card.st-absent.auto { background: var(--surface-2); border-color: var(--st-absent-soft); }
+.v-today .td-card.st-excused { background: var(--st-excused-soft); }
+.v-today .td-card.st-canceled .td-c-name { text-decoration: line-through; color: var(--text-3); }
+.v-today .td-card.st-pending { background: var(--surface); border-color: var(--accent); box-shadow: 0 2px 10px var(--accent-glow); }
+.v-today .td-card.st-upcoming { background: var(--surface); border-color: var(--line); }
+.v-today .td-card.st-unmarked { background: var(--surface); border-style: dashed; border-color: var(--line-strong); }
+
+.v-today .td-c-main { flex: 1 1 auto; min-width: 0; }
+.v-today .td-c-name { display: flex; align-items: center; gap: 5px; min-width: 0; font-size: 16.5px; font-weight: 750; letter-spacing: -.015em; }
+.v-today .td-c-flag { display: inline-flex; flex: none; color: var(--text-3); }
+.v-today .td-c-sub { display: flex; align-items: center; flex-wrap: wrap; gap: 3px 6px; margin-top: 2px; font-size: 12.5px; color: var(--text-2); min-width: 0; }
+.v-today .td-c-course { max-width: 100%; }
+.v-today .td-pass {
+  display: inline-flex; align-items: center; gap: 3px; flex: none;
+  padding: 1px 7px; border-radius: 999px; font-size: 12px; font-weight: 650;
+  background: var(--surface); color: var(--text-2); box-shadow: inset 0 0 0 1px var(--line);
+}
+.v-today .td-pass.warn { background: var(--warn-soft); color: var(--warn-ink); box-shadow: none; }
+
+.v-today .td-c-end { flex: none; display: flex; align-items: center; gap: 8px; }
+.v-today .td-c-status { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+.v-today .td-c-when { font-size: 12px; color: var(--text-2); font-weight: 600; white-space: nowrap; }
+.v-today .td-sig { width: 64px; height: 34px; background: var(--sig-bg); color: var(--sig-ink); box-shadow: inset 0 0 0 1px var(--line); }
+.v-today .td-sig .sig-svg { width: 100%; height: 100%; }
+.v-today .td-c-more { flex: none; width: 40px; min-width: 40px; color: var(--text-3); }
+@media (max-width: 374px) {
+  .v-today .td-sig { display: none; }
+  .v-today .td-g-time { width: 52px; }
+  .v-today .td-g-start { font-size: 19px; }
+  .v-today .td-g-head { gap: 10px; }
+}
+
+/* 아래 */
+.v-today .td-foot { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 0 4px; text-align: center; }
+
+/* 빈 날 */
+.v-today .td-empty .empty { padding: 32px 12px; }
+.v-today .td-empty-acts { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 10px; }
+.v-today .td-empty-acts .btn { margin-top: 0; }
+
+/* ---------- 첫 실행 ---------- */
+.v-today .td-onboard { padding: 20px; background: linear-gradient(160deg, var(--accent-soft), var(--surface) 62%); }
+.v-today .td-ob-hero { display: flex; align-items: flex-start; gap: 14px; }
+.v-today .td-ob-logo {
+  flex: none; display: grid; place-items: center; width: 60px; height: 60px; border-radius: 18px; color: #fff;
+  background: linear-gradient(135deg, #F0662A, #C73E0B); box-shadow: 0 6px 18px var(--accent-glow);
+}
+.v-today .td-ob-title { font-size: 21px; font-weight: 850; letter-spacing: -.03em; margin-bottom: 6px; }
+.v-today .td-ob-points { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 8px; }
+.v-today .td-ob-points li { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+.v-today .td-ob-points .ic { color: var(--accent); flex: none; }
+.v-today .td-ob-actions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; margin-top: 18px; }
+@media (min-width: 560px) { .v-today .td-ob-actions { grid-template-columns: 1.4fr 1fr; } }
+.v-today .td-ob-btn { width: 100%; }
+.v-today .td-ob-note { margin-top: 10px; font-size: 13px; text-align: center; }
+.v-today .td-a2hs { margin-top: 16px; padding: 14px; border-radius: 12px; background: var(--info-soft); color: var(--info-ink); }
+.v-today .td-a2hs-h { display: flex; align-items: center; gap: 8px; font-size: 15px; }
+.v-today .td-a2hs-steps { margin: 10px 0 8px; padding-left: 22px; display: grid; gap: 6px; font-size: 14.5px; }
+.v-today .td-a2hs .muted { color: inherit; opacity: .85; }
+.v-today .td-kbd {
+  display: inline-flex; align-items: center; gap: 3px; padding: 1px 7px; margin: 0 1px;
+  border-radius: 7px; background: var(--surface); color: var(--text); font-weight: 650; font-size: 13.5px;
+  box-shadow: inset 0 0 0 1px var(--line); white-space: nowrap; vertical-align: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v-today .td-live { animation: none; }
+  .v-today .td-group.flash { animation: none; }
+  .v-today .td-card { transition: none; }
+}

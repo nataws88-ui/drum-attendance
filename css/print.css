@@ -1,0 +1,138 @@
+/* 드럼 출석부 — print.css : 인쇄 미리보기(화면) + @media print. 종이는 항상 흰 바탕·검은 글씨.
+   구조: #print-root > .print-bar + .print-scroll > .print-doc.(landscape|portrait) > .pd.(month-sheet|sign-log|stats-sheet) */
+
+/* ---------- 화면: 미리보기 ---------- */
+body.printing { background: var(--surface-2); }
+body.printing #print-root { display: block; min-height: 100vh; padding-bottom: calc(24px + var(--safe-b)); }
+.print-bar {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; align-items: center; gap: 8px;
+  padding: calc(var(--safe-t) + 8px) calc(12px + var(--safe-r)) 8px calc(8px + var(--safe-l));
+  background: var(--bar-bg); border-bottom: 1px solid var(--line);
+  -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px);
+}
+.print-bar .btn { touch-action: manipulation; }
+.print-bar-title { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; line-height: 1.25; }
+.print-bar-title b { font-size: 16px; font-weight: 750; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text); }
+.print-bar-title span { font-size: 12.5px; color: var(--text-3); }
+.print-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 16px; }
+.print-doc {
+  margin: 0 auto; background: #fff; color: #111; box-shadow: var(--shadow-lg);
+  font-family: var(--font); font-variant-numeric: tabular-nums;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+.print-doc.landscape { width: 281mm; min-height: 194mm; padding: 8mm; }
+.print-doc.portrait { width: 190mm; min-height: 277mm; padding: 10mm; }
+
+/* ---------- 문서 공통 ---------- */
+.pd { font-size: 9.5pt; line-height: 1.35; color: #111; }
+.pd-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 6mm; margin-bottom: 4mm; padding-bottom: 3mm; border-bottom: 1.4pt solid #111; }
+.pd-head-main { min-width: 0; }
+.pd-academy { font-size: 9pt; font-weight: 700; color: #555; letter-spacing: .02em; }
+.pd-title { font-size: 17pt; font-weight: 800; letter-spacing: -.02em; margin: 1mm 0 1.5mm; color: #111; }
+.pd-sub { font-size: 9pt; color: #444; }
+.pd-head-side { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 2mm; }
+.pd-printed { font-size: 8pt; color: #666; white-space: nowrap; }
+.pd-approve { border-collapse: collapse; }
+.pd-approve th, .pd-approve td { border: .8pt solid #333; width: 17mm; text-align: center; }
+.pd-approve th { font-size: 8pt; font-weight: 700; padding: .8mm 0; background: #f1f1f1; }
+.pd-approve td { height: 12mm; }
+.pd-table { width: 100%; border-collapse: collapse; table-layout: auto; }
+.pd-table th, .pd-table td { border: .6pt solid #777; padding: 1.2mm 1.4mm; vertical-align: middle; }
+.pd-table thead th { background: #eeeeec; font-weight: 700; font-size: 8.5pt; }
+.pd-table tr { page-break-inside: avoid; break-inside: avoid; }
+.pd-table thead { display: table-header-group; }
+.pd-table tfoot { display: table-row-group; }
+.pd-legend { display: flex; flex-wrap: wrap; gap: 1.5mm 5mm; margin-top: 3mm; font-size: 8.5pt; color: #333; }
+.pd-legend b { font-size: 10pt; }
+.pd-legend-note { color: #666; }
+.pd-note { margin-top: 3mm; font-size: 8pt; color: #666; }
+
+/* ---------- 월간 출석부 ---------- */
+.ms-table { table-layout: fixed; font-size: 8pt; }
+.ms-table col.ms-no { width: 7mm; }
+.ms-table col.ms-name { width: 20mm; }
+.ms-table col.ms-sum { width: 7.5mm; }
+.ms-table col.ms-rate { width: 11mm; }
+.ms-table th, .ms-table td { padding: .6mm .2mm; text-align: center; }
+.ms-table td.ms-name { text-align: left; padding-left: 1.4mm; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: clip; }
+.ms-table td.ms-no { color: #666; }
+.ms-table .ms-day, .ms-table .ms-wd { font-size: 7.5pt; }
+.ms-table .ms-wd { font-weight: 500; }
+.ms-table .sun { color: #C62828; }
+.ms-table .sat { color: #1E4FC2; }
+.ms-table th.today { background: #FFE3D3; }
+.ms-table th.closed { background: #dedede; text-decoration: line-through; }
+.ms-table td.ms-cell { height: 6.2mm; font-size: 9.5pt; font-weight: 700; line-height: 1; white-space: nowrap; overflow: hidden; }
+.ms-table td.sched { background: #ececec; }
+.ms-table td.s-late { color: #A04E00; }
+.ms-table td.s-absent { color: #B3161B; }
+.ms-table td.s-excused { color: #5B21B6; }
+.ms-table td.s-canceled { color: #777; }
+.ms-table td.ms-sum { font-weight: 600; }
+.ms-table td.ms-rate { font-weight: 800; }
+.ms-table tr.ms-blank td { height: 6.2mm; }
+.ms-table tfoot td { background: #f5f5f3; font-weight: 700; }
+.ms-table td.ms-foot { font-size: 7.5pt; font-weight: 600; }
+.ms-table .ms-foot-label { text-align: right; padding-right: 1.4mm; font-size: 8pt; }
+
+/* ---------- 서명 대장 ---------- */
+.sl-table { font-size: 8.8pt; }
+.sl-table th { text-align: center; }
+.sl-table td { text-align: left; }
+.sl-table .sl-no { width: 8mm; text-align: center; color: #666; }
+.sl-table .sl-date { width: 26mm; white-space: nowrap; }
+.sl-table .sl-name { width: 22mm; font-weight: 700; }
+.sl-table .sl-status { width: 12mm; text-align: center; font-weight: 700; }
+.sl-table .sl-time { width: 15mm; text-align: center; white-space: nowrap; }
+.sl-table td.sl-sig { width: 46mm; height: 13mm; padding: .6mm 1mm; text-align: center; }
+.sl-table td.s-late { color: #A04E00; }
+.sl-table td.s-absent { color: #B3161B; }
+.sl-table td.s-excused { color: #5B21B6; }
+.sl-muted { font-size: 7.5pt; color: #666; }
+.sl-sig-img { display: inline-block; width: 44mm; height: 12mm; }
+.sl-sig-img svg { display: block; width: 100%; height: 100%; }
+.sl-manual { font-size: 8pt; color: #888; }
+.sl-table tr.sl-newday td { border-top: 1.2pt solid #333; }
+
+/* ---------- 통계 요약 ---------- */
+.ps-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2mm; margin-bottom: 4mm; }
+.ps-kpi { border: .6pt solid #999; border-radius: 2mm; padding: 2mm 2.5mm; page-break-inside: avoid; break-inside: avoid; }
+.ps-kpi-label { font-size: 8pt; color: #555; font-weight: 600; }
+.ps-kpi-value { font-size: 15pt; font-weight: 800; letter-spacing: -.02em; }
+.ps-kpi-sub { font-size: 7.5pt; color: #666; }
+.ps-sec { margin-top: 4mm; }
+.ps-sec h2 { font-size: 11pt; font-weight: 800; margin: 0 0 1.5mm; color: #111; page-break-after: avoid; break-after: avoid; }
+.ps-table { font-size: 8.3pt; }
+.ps-table th, .ps-table td { text-align: right; white-space: nowrap; }
+.ps-table .l { text-align: left; }
+.ps-table .b { font-weight: 800; }
+.ps-table td.warn { color: #B3161B; font-weight: 700; }
+.ps-groups { display: block; }
+.ps-risk ul { margin: 0; padding-left: 5mm; font-size: 8.5pt; }
+.ps-risk li { margin: .6mm 0; }
+
+/* ---------- v1.1 출석 QR 한 장 ---------- */
+.pq-sheet { display: flex; flex-direction: column; align-items: center; text-align: center; color: #111; padding-top: 8mm; }
+.pq-academy { font-size: 16pt; font-weight: 700; color: #444; letter-spacing: -.01em; }
+.pq-title { font-size: 40pt; font-weight: 900; letter-spacing: -.03em; margin: 2mm 0 7mm; color: #111; }
+.pq-qr { width: 130mm; height: 130mm; padding: 3mm; border: 1.2pt solid #111; border-radius: 4mm; background: #fff; }
+.pq-qr svg { display: block; width: 100%; height: 100%; }
+.pq-steps { margin: 9mm auto 0; padding: 0 0 0 7mm; text-align: left; font-size: 15pt; line-height: 1.7; font-weight: 600; }
+.pq-steps b { font-weight: 900; }
+.pq-note { margin: 6mm 8mm 0; padding: 3mm 5mm; border: .8pt dashed #555; border-radius: 3mm; font-size: 11.5pt; color: #222; }
+.pq-foot { margin-top: auto; padding-top: 8mm; font-size: 8.5pt; color: #777; }
+
+/* ---------- 실제 인쇄 ---------- */
+@media print {
+  html, body { background: #fff !important; color: #000 !important; }
+  body.printing { padding: 0 !important; margin: 0 !important; }
+  body.printing .app, body.printing #sheet-root, body.printing #toast-root, body.printing .update-banner, body.printing #boot { display: none !important; }
+  body.printing #print-root { display: block !important; min-height: 0; padding: 0; }
+  .print-bar { display: none !important; }
+  .print-scroll { overflow: visible !important; padding: 0 !important; }
+  .print-doc { width: auto !important; min-height: 0 !important; padding: 0 !important; margin: 0 !important; box-shadow: none !important; }
+  .print-doc.pq-doc { zoom: 1 !important; }
+  .pd-table tr, .ps-kpi { page-break-inside: avoid; break-inside: avoid; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

@@ -1,0 +1,170 @@
+/* =====================================================================
+   드럼 출석부 — pass.css (v1.1: 이용권 카드·발급·오늘 출석·QR 스캐너·QR 설정)
+   iOS Safari 16 기준: 중첩·:has()·color-mix 사용 안 함. 토큰(app.css)만 쓴다.
+   ===================================================================== */
+
+/* ---------- 큰 출석 버튼 두 개(오늘·수강생 목록) ---------- */
+.pc-quick { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 14px; }
+.pc-quick .btn { min-height: 64px; font-size: 18px; font-weight: 800; border-radius: 18px; padding: 0 12px; white-space: nowrap; }
+.pc-quick .btn span { overflow: hidden; text-overflow: ellipsis; }
+.pc-quick-name { background: var(--surface); }
+@media (max-width: 359px) { .pc-quick .btn { font-size: 16px; } }
+
+/* ---------- 이번 달 출석 카드 ---------- */
+.pc-card { position: relative; border-top: 4px solid var(--pc, var(--accent)); padding-top: 10px; }
+.pc-head { display: flex; align-items: center; gap: 2px; margin: 0 -6px 6px; }
+.pc-month { flex: 1 1 auto; min-width: 0; display: flex; align-items: baseline; justify-content: center; gap: 8px; font-size: 16px; }
+.pc-month b { font-weight: 800; letter-spacing: -.01em; }
+.pc-now { font-size: 12px; font-weight: 700; color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 999px; }
+.pc-main { display: flex; flex-direction: column; gap: 4px; padding: 2px 2px 12px; }
+.pc-prod { display: flex; align-items: center; gap: 6px; font-weight: 700; color: var(--text-2); font-size: 14px; min-width: 0; }
+.pc-dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.pc-count { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; }
+.pc-big { font-size: 26px; font-weight: 850; letter-spacing: -.02em; line-height: 1.15; }
+.pc-main.none .pc-big { font-size: 20px; color: var(--warn-ink); }
+.pc-money { font-size: 15px; color: var(--text-2); line-height: 1.45; }
+.pc-money b { color: var(--text); font-weight: 800; }
+.pc-sub { line-height: 1.4; }
+
+.pc-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; margin: 2px 0 12px; }
+@media (max-width: 380px) { .pc-slots { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; } }
+.pc-slot {
+  position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  min-height: 104px; min-width: 0; padding: 8px 8px 7px; margin: 0;
+  border: 1.5px solid var(--line); border-radius: 12px; background: var(--surface-2);
+  font: inherit; color: var(--text); text-align: left; cursor: pointer; touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.pc-slot:active { transform: scale(.98); }
+.pc-slot-n { display: flex; align-items: center; gap: 4px; width: 100%; font-size: 13px; font-weight: 800; color: var(--text-2); }
+.pc-over { margin-left: auto; font-style: normal; font-size: 11px; font-weight: 800; color: #fff; background: var(--st-absent); padding: 1px 6px; border-radius: 999px; }
+.pc-slot-e { flex: 1 1 auto; display: flex; align-items: center; justify-content: center; width: 100%; font-size: 20px; color: var(--text-3); }
+.pc-slot.empty { border-style: dashed; background: transparent; }
+.pc-slot.filled { background: var(--surface); }
+.pc-slot.is-present { border-color: var(--st-present); background: var(--st-present-soft); }
+.pc-slot.is-absent { border-color: var(--st-absent); background: var(--st-absent-soft); }
+.pc-slot.is-over { box-shadow: inset 0 0 0 2px var(--st-absent); }
+.pc-slot-d { font-size: 14px; font-weight: 750; white-space: nowrap; }
+.pc-slot-t { display: flex; align-items: center; gap: 6px; width: 100%; font-size: 12.5px; color: var(--text-2); }
+.pc-slot-sig { display: flex; align-items: center; justify-content: center; width: 100%; height: 26px; margin-top: 2px; border-radius: 6px; background: var(--sig-bg); color: var(--sig-ink); overflow: hidden; }
+.pc-slot-sig svg { max-width: 100%; }
+.pc-slot-sig.none { background: transparent; color: var(--text-3); font-size: 11.5px; font-weight: 700; }
+.pc-slot-st { margin-left: auto; font-size: 11.5px; font-weight: 800; }
+.pc-slot.is-present .pc-slot-st { color: var(--st-present-ink); }
+.pc-slot.is-absent .pc-slot-st { color: var(--st-absent-ink); }
+.pc-slots-empty { grid-column: 1 / -1; padding: 10px 2px; }
+
+.pc-adj { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 8px 0 10px; border-top: 1px solid var(--line); }
+.pc-adj-l { font-size: 14px; font-weight: 700; color: var(--text-2); margin-right: 2px; }
+.pc-adj .btn { min-width: 64px; font-weight: 800; }
+.pc-adj-hint { flex: 1 1 100%; }
+@media (min-width: 420px) { .pc-adj-hint { flex: 1 1 auto; } }
+
+.pc-acts { display: grid; grid-template-columns: 1.3fr 1fr; gap: 8px; }
+.pc-acts .btn { white-space: nowrap; padding: 0 10px; font-weight: 800; }
+.pc-absent { color: var(--st-absent-ink); border-color: var(--st-absent); background: var(--surface); }
+@media (max-width: 359px) { .pc-acts { grid-template-columns: 1fr; } }
+.pc-past { margin-top: 8px; }
+
+.pc-nosig { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 120px; border-radius: 16px; background: var(--surface-2); color: var(--text-2); font-weight: 700; padding: 16px; text-align: center; }
+
+/* ---------- 남은 횟수 배지 ---------- */
+.badge.pass-ok { background: var(--st-present-soft); color: var(--st-present-ink); }
+.badge.pass-empty { background: var(--st-late-soft); color: var(--st-late-ink); }
+.badge.pass-over { background: var(--st-absent); color: #fff; }
+.badge.pass-none { background: var(--warn-soft); color: var(--warn-ink); box-shadow: inset 0 0 0 1px var(--st-late); }
+
+/* ---------- 이용권 발급 버튼 ---------- */
+.pc-issue .card-h h3 { display: flex; align-items: center; gap: 6px; }
+.pc-issue-btns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+@media (min-width: 560px) { .pc-issue-btns { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.pc-issue-btn {
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 3px;
+  min-height: 68px; min-width: 0; padding: 10px 12px; margin: 0;
+  border: 1.5px solid var(--line); border-left: 6px solid var(--pc, var(--accent)); border-radius: 14px;
+  background: var(--surface); color: var(--text); font: inherit; text-align: left; cursor: pointer; touch-action: manipulation;
+}
+.pc-issue-btn:active { transform: scale(.98); }
+.pc-issue-btn.mine { background: var(--accent-soft); }
+.pc-issue-btn.custom { border-left-color: var(--text-3); border-style: dashed; border-left-style: solid; }
+.pc-issue-name { display: flex; align-items: center; gap: 6px; width: 100%; font-size: 16px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-issue-name i { font-style: normal; font-size: 11px; font-weight: 800; color: var(--accent); }
+.pc-issue-meta { font-size: 13px; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+
+.pc-issue-form .info-card { margin-bottom: 12px; }
+.pc-ym { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-height: 48px; padding: 0 4px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); }
+.pc-ym-v { font-size: 17px; font-weight: 800; }
+.pc-issue-info { display: flex; flex-direction: column; gap: 2px; margin: -4px 0 12px; padding: 10px 12px; border-radius: 12px; background: var(--surface-2); font-size: 15px; }
+.pc-issue-form .field-row .stepper .input { min-width: 0; }
+
+/* ---------- 수강생 목록 행 / 편집기 ---------- */
+.stu-end.pass { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none; }
+.stu-month { font-size: 14px; font-weight: 750; white-space: nowrap; }
+.stu-more-btn { margin: 4px 0 8px; }
+.stu-more-btn .ic, .stu-more-btn svg { transition: transform .15s; }
+.stu-more-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.stu-more-box { padding-top: 4px; border-top: 1px dashed var(--line); }
+.stu-more-box[hidden] { display: none; }
+.stu-pass-months .table td, .stu-pass-months .table th { white-space: nowrap; }
+.stu-pass-months tr.tap { cursor: pointer; }
+
+/* ---------- 오늘: 오늘 출석 목록 ---------- */
+.td-att { margin-bottom: 14px; }
+.td-att .card-h { flex-wrap: wrap; }
+.td-att .card-h h2 { flex: 1 1 auto; }
+.td-att-sum { font-size: 14px; color: var(--text-2); white-space: nowrap; }
+.td-att-sum b { color: var(--text); font-weight: 850; }
+.td-att-list { margin: 0 -16px -16px; border-radius: 0 0 var(--radius) var(--radius); overflow: hidden; }
+.td-att-row .li-title { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.td-att-n { flex: none; font-size: 12px; font-weight: 800; color: var(--text-3); background: var(--surface-2); padding: 1px 7px; border-radius: 999px; }
+.td-att-end { display: flex; align-items: center; gap: 6px; flex: none; }
+.td-att-row.is-absent .li-title { color: var(--st-absent-ink); }
+.td-att-empty { padding: 18px 16px 20px; font-size: 14px; line-height: 1.5; }
+@media (max-width: 380px) { .td-att-end .sig-thumb { display: none; } }
+.td-sec-title { display: flex; align-items: center; gap: 6px; margin: 18px 2px 10px; font-size: 16px; font-weight: 800; color: var(--text-2); }
+
+/* ---------- 서명 완료 화면의 이용권 줄 ---------- */
+.sign-done .sign-done-pass { margin-top: 4px; font-weight: 800; color: var(--text); }
+
+/* ---------- QR 스캐너 ---------- */
+.qr-sheet .sheet-b { display: flex; flex-direction: column; height: 100%; }
+.qr-scan { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; padding: 10px 16px calc(16px + var(--safe-b)); gap: 12px; background: var(--surface); }
+.qr-top { display: flex; align-items: flex-start; gap: 8px; }
+.qr-title { font-size: 22px; font-weight: 850; letter-spacing: -.02em; }
+.qr-sub { font-size: 14px; color: var(--text-2); margin-top: 2px; }
+.qr-close { margin: -4px -8px 0 0; }
+.qr-stage { position: relative; flex: 1 1 auto; min-height: 240px; max-height: 62vh; border-radius: 20px; overflow: hidden; background: #000; }
+.qr-video { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; }
+.qr-stage.off { background: var(--surface-2); }
+.qr-frame { position: absolute; left: 50%; top: 50%; width: 62%; max-width: 280px; aspect-ratio: 1 / 1; transform: translate(-50%, -50%); box-shadow: 0 0 0 999px rgba(0,0,0,.35); border-radius: 14px; pointer-events: none; }
+.qr-stage.off .qr-frame { box-shadow: none; border: 2px dashed var(--line-strong); }
+.qr-frame i { position: absolute; width: 34px; height: 34px; border: 5px solid #fff; }
+.qr-frame i:nth-child(1) { left: -3px; top: -3px; border-right: 0; border-bottom: 0; border-top-left-radius: 14px; }
+.qr-frame i:nth-child(2) { right: -3px; top: -3px; border-left: 0; border-bottom: 0; border-top-right-radius: 14px; }
+.qr-frame i:nth-child(3) { left: -3px; bottom: -3px; border-right: 0; border-top: 0; border-bottom-left-radius: 14px; }
+.qr-frame i:nth-child(4) { right: -3px; bottom: -3px; border-left: 0; border-top: 0; border-bottom-right-radius: 14px; }
+.qr-stage.off .qr-frame i { border-color: var(--line-strong); }
+.qr-stage.found .qr-frame i { border-color: var(--st-present); }
+.qr-status { min-height: 24px; font-size: 16px; font-weight: 750; text-align: center; color: var(--text-2); }
+.qr-status.ok { color: var(--st-present-ink); }
+.qr-status.warn { color: var(--st-absent-ink); }
+.qr-actions { display: flex; gap: 8px; justify-content: center; }
+.qr-actions .btn { flex: 1 1 0; max-width: 220px; }
+.qr-note { font-size: 13px; color: var(--text-3); text-align: center; line-height: 1.45; margin: 0; }
+@media (min-width: 720px) { .qr-sheet.sheet.full { width: min(560px, 100%); } }
+
+/* ---------- 설정: 이용권 상품·QR ---------- */
+.v-settings .st-prod .li-sub { white-space: normal; }
+.v-settings .st-prod .li-title { display: flex; align-items: center; gap: 6px; }
+.v-settings .st-prod .li-title svg { color: var(--text-3); flex: none; }
+.v-settings .st-prod .st-color { width: 28px; height: 28px; border-radius: 50%; flex: none; }
+.st-qr-wrap { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.st-qr-box { width: 168px; height: 168px; flex: none; padding: 6px; border-radius: 14px; background: #fff; box-shadow: inset 0 0 0 1px var(--line); }
+.st-qr-box svg { display: block; width: 100%; height: 100%; }
+.st-qr-side { flex: 1 1 180px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.st-qr-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.st-qr-empty p { margin: 0 0 12px; color: var(--text-2); line-height: 1.5; }
+
+/* ---------- 통계 ---------- */
+.st-pass.over { color: var(--st-absent-ink); font-weight: 800; }
+.st-course { white-space: nowrap; }

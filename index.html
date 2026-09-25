@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>드럼 출석부</title>
+<meta name="description" content="드럼 학원 이용권 출석 · QR 출석 · 서명 · 수납 · 연습실 · 스마트 검색">
+<meta name="application-name" content="드럼 출석부">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="드럼출석">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F6F5F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<script>
+  /* 첫 화면 전에: 저장된 테마 적용 + 초기 오류 수집 + 느린 부팅 안내 */
+  (function () {
+    try {
+      var t = localStorage.getItem('da.theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+    var DA = window.DA = window.DA || {};
+    DA.errors = DA.errors || [];
+    DA._errHooked = true;
+    function push(o) { o.at = new Date().toISOString(); DA.errors.push(o); if (DA.errors.length > 50) DA.errors.splice(0, DA.errors.length - 50); }
+    window.addEventListener('error', function (ev) {
+      var tg = ev && ev.target;
+      if (tg && tg !== window && (tg.src || tg.href)) { push({ type: 'resource', message: '불러오기 실패: ' + (tg.src || tg.href) }); return; }
+      push({ type: 'error', message: String(ev && ev.message || 'unknown'), source: ev && ev.filename || '', line: ev && ev.lineno || 0, col: ev && ev.colno || 0, stack: ev && ev.error && ev.error.stack ? String(ev.error.stack).slice(0, 2000) : '' });
+    }, true);
+    window.addEventListener('unhandledrejection', function (ev) {
+      var r = ev && ev.reason;
+      push({ type: 'unhandledrejection', message: String(r && r.message || r), stack: r && r.stack ? String(r.stack).slice(0, 2000) : '' });
+    });
+    setTimeout(function () {
+      if (!DA.booted) { var b = document.getElementById('boot'); if (b && !b.querySelector('.fatal')) b.className += ' slow'; }
+    }, 7000);
+  })();
+</script>
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/today.css">
+<link rel="stylesheet" href="css/kiosk.css">
+<link rel="stylesheet" href="css/timetable.css">
+<link rel="stylesheet" href="css/students.css">
+<link rel="stylesheet" href="css/stats.css">
+<link rel="stylesheet" href="css/settings.css">
+<link rel="stylesheet" href="css/print.css">
+<link rel="stylesheet" href="css/pass.css">
+<link rel="stylesheet" href="css/v12.css">
+</head>
+<body>
+<div id="app" class="app">
+  <nav id="tabbar" class="tabbar" aria-label="주 메뉴"></nav>
+  <main id="view" class="view" tabindex="-1"></main>
+</div>
+<div id="sheet-root"></div>
+<div id="toast-root" aria-live="polite"></div>
+<div id="print-root"></div>
+
+<div id="boot" class="boot" role="status" aria-label="불러오는 중">
+  <img class="boot-logo" src="icons/icon.svg" width="88" height="88" alt="">
+  <div class="boot-name">드럼 출석부</div>
+  <div class="boot-bar"><span></span></div>
+  <div class="boot-help">
+    불러오는 데 시간이 오래 걸리고 있어요.<br>
+    <button class="btn btn-primary" type="button" onclick="location.reload()">다시 열기</button>
+  </div>
+</div>
+<noscript><div class="noscript">드럼 출석부는 자바스크립트가 켜져 있어야 동작해요.<br>브라우저 설정에서 자바스크립트를 켜 주세요.</div></noscript>
+
+<script src="js/core/util.js"></script>
+<script src="js/core/store.js"></script>
+<script src="js/core/schedule.js"></script>
+<script src="js/core/pass.js"></script>
+<script src="js/core/billing.js"></script>
+<script src="js/core/rooms.js"></script>
+<script src="js/core/ops.js"></script>
+<script src="js/core/ask.js"></script>
+<script src="js/core/stats.js"></script>
+<script src="js/core/backup.js"></script>
+<script src="js/core/demo.js"></script>
+<script src="js/vendor/qrcode.js"></script>
+<script src="js/vendor/jsQR.js"></script>
+<script src="js/ui/icons.js"></script>
+<script src="js/ui/shell.js"></script>
+<script src="js/ui/signature.js"></script>
+<script src="js/ui/actions.js"></script>
+<script src="js/ui/charts.js"></script>
+<script src="js/ui/qr.js"></script>
+<script src="js/ui/pass-ui.js"></script>
+<script src="js/ui/billing-ui.js"></script>
+<script src="js/ui/rooms-ui.js"></script>
+<script src="js/ui/ops-ui.js"></script>
+<script src="js/ui/ask-ui.js"></script>
+<script src="js/ui/more.js"></script>
+<script src="js/ui/today.js"></script>
+<script src="js/ui/kiosk.js"></script>
+<script src="js/ui/timetable.js"></script>
+<script src="js/ui/students.js"></script>
+<script src="js/ui/stats-view.js"></script>
+<script src="js/ui/settings.js"></script>
+<script src="js/ui/print.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

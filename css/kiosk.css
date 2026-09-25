@@ -1,0 +1,154 @@
+/* 드럼 출석부 — kiosk.css : 키오스크 전용 스타일(.v-kiosk, 검색·PIN 시트). 토큰·공용 클래스는 app.css. */
+
+.v-kiosk { background: var(--bg); }
+.v-kiosk .ks {
+  display: flex; flex-direction: column; min-height: 100vh; min-width: 0;
+  padding: calc(var(--safe-t) + 8px) calc(var(--safe-r) + 16px) calc(var(--safe-b) + 16px) calc(var(--safe-l) + 16px);
+  max-width: 1400px; margin: 0 auto;
+}
+@supports (-webkit-touch-callout: none) { .v-kiosk .ks { min-height: -webkit-fill-available; } }
+
+/* 위 막대 */
+.v-kiosk .ks-top { display: flex; align-items: center; gap: 10px; min-height: 56px; }
+.v-kiosk .ks-corner {
+  flex: none; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 16px; color: #fff;
+  background: linear-gradient(135deg, #F0662A, #C73E0B); box-shadow: 0 4px 14px var(--accent-glow);
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: manipulation;
+  transition: transform .8s linear;
+}
+.v-kiosk .ks-corner.pressing { transform: scale(.86); }
+.v-kiosk .ks-academy { flex: 1 1 auto; font-size: 19px; font-weight: 800; letter-spacing: -.02em; }
+.v-kiosk .ks-lock { flex: none; color: var(--text-3); opacity: .7; }
+
+/* 시계·인사 */
+.v-kiosk .ks-hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 10px 0 20px; }
+.v-kiosk .ks-clock { display: flex; align-items: baseline; gap: 8px; line-height: 1; }
+.v-kiosk .ks-ap { font-size: clamp(18px, 4vw, 28px); font-weight: 700; color: var(--text-2); }
+.v-kiosk .ks-hm { font-size: clamp(56px, 16vw, 104px); font-weight: 850; letter-spacing: -.04em; }
+.v-kiosk .ks-date { margin-top: 6px; font-size: clamp(16px, 3.6vw, 20px); color: var(--text-2); font-weight: 650; }
+.v-kiosk .ks-greet { margin-top: 14px; font-size: clamp(22px, 5.4vw, 32px); font-weight: 850; letter-spacing: -.03em; color: var(--accent); }
+.v-kiosk .ks-lead { margin-top: 4px; font-size: clamp(16px, 3.8vw, 20px); color: var(--text-2); }
+.v-kiosk .ks-count {
+  display: inline-flex; align-items: center; gap: 5px; margin-top: 12px; padding: 4px 12px; border-radius: 999px;
+  background: var(--ok-soft); color: var(--ok-ink); font-size: 14px; font-weight: 700;
+}
+
+/* 타일 */
+.v-kiosk .ks-main { flex: 1 1 auto; min-width: 0; }
+.v-kiosk .ks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+@media (min-width: 600px) { .v-kiosk .ks-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; } }
+@media (min-width: 1000px) { .v-kiosk .ks-grid { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; } }
+.v-kiosk .ks-tile {
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  min-width: 0; min-height: 150px; margin: 0; padding: 18px 10px 14px;
+  border: 2px solid transparent; border-radius: 22px;
+  background: var(--surface); color: var(--text); box-shadow: var(--shadow);
+  font: inherit; text-align: center; cursor: pointer;
+  touch-action: manipulation; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+  transition: transform .12s ease, box-shadow .15s, opacity .2s;
+}
+.v-kiosk .ks-tile::after {
+  content: ''; position: absolute; left: 22px; right: 22px; bottom: 0; height: 4px; border-radius: 4px 4px 0 0;
+  background: var(--tc, var(--line-strong)); opacity: .85;
+}
+.v-kiosk .ks-tile:active { transform: scale(.96); }
+.v-kiosk .ks-tile .avatar.lg { width: 60px; height: 60px; font-size: 25px; }
+.v-kiosk .ks-t-name {
+  max-width: 100%; font-size: clamp(22px, 5.6vw, 28px); font-weight: 850; letter-spacing: -.03em; line-height: 1.15;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.v-kiosk .ks-t-sub { display: inline-flex; align-items: center; gap: 3px; max-width: 100%; font-size: 14px; color: var(--text-2); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.v-kiosk .ks-t-sub.done { color: var(--st-present-ink); }
+.v-kiosk .ks-t-teacher { overflow: hidden; text-overflow: ellipsis; }
+.v-kiosk .ks-t-tag, .v-kiosk .ks-tile > .badge { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+.v-kiosk .ks-t-tag {
+  padding: 3px 10px; border-radius: 999px; font-size: 12.5px; font-weight: 800;
+  background: var(--accent); color: var(--accent-ink);
+}
+.v-kiosk .ks-tile.soon { border-color: var(--accent); box-shadow: 0 6px 22px var(--accent-glow); padding-top: 44px; }
+.v-kiosk .ks-tile > .badge ~ .avatar { margin-top: 22px; }
+.v-kiosk .ks-tile.done { opacity: .5; box-shadow: none; background: var(--surface-2); }
+.v-kiosk .ks-tile.done .avatar { filter: grayscale(.6); }
+.v-kiosk .ks-t-check {
+  position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--st-present); color: #fff;
+}
+.v-kiosk .ks-sec { margin: 24px 4px 10px; font-size: 14px; font-weight: 750; color: var(--text-3); }
+.v-kiosk .ks-grid-ended .ks-tile { min-height: 120px; }
+.v-kiosk .ks-grid-ended .ks-tile .avatar.lg { width: 48px; height: 48px; font-size: 20px; }
+.v-kiosk .ks-grid-ended .ks-t-name { font-size: 21px; }
+
+/* 빈 상태 */
+.v-kiosk .ks-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 36px 16px; }
+.v-kiosk .ks-empty-ic { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 26px; background: var(--accent-soft); color: var(--accent); margin-bottom: 4px; }
+.v-kiosk .ks-empty h2 { font-size: 23px; font-weight: 850; letter-spacing: -.03em; }
+.v-kiosk .ks-empty p { max-width: 460px; font-size: 17px; color: var(--text-2); white-space: pre-line; }
+
+/* 아래 */
+.v-kiosk .ks-foot { display: flex; justify-content: center; padding: 26px 0 8px; }
+.v-kiosk .ks-missing { min-width: min(100%, 320px); min-height: 60px; font-size: 19px; border-radius: 18px; border-width: 2px; border-color: var(--line-strong); }
+
+/* ---------- 명단에 없어요(검색 시트) ---------- */
+.ks-search-sheet .sheet-title { font-size: 22px; }
+.ks-search { display: flex; flex-direction: column; gap: 14px; max-width: 980px; margin: 0 auto; }
+.ks-search-box .input.ks-search-input { min-height: 58px; font-size: 22px; font-weight: 650; }
+.ks-search-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+@media (min-width: 820px) and (orientation: landscape) {
+  .ks-search-body { grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); align-items: start; }
+}
+.ks-cho { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+@media (min-width: 480px) { .ks-cho { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+@media (min-width: 820px) and (orientation: landscape) { .ks-cho { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.ks-key {
+  display: grid; place-items: center; min-height: 56px; margin: 0; padding: 0;
+  border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--text);
+  font-size: 24px; font-weight: 750; cursor: pointer; touch-action: manipulation;
+  -webkit-user-select: none; user-select: none; transition: transform .1s, background-color .12s;
+}
+.ks-key:active { transform: scale(.94); background: var(--accent-soft); }
+.ks-key.fn { font-size: 15px; color: var(--text-2); background: var(--surface-2); }
+.ks-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; align-content: start; }
+.ks-result {
+  display: flex; align-items: center; gap: 12px; min-height: 64px; margin: 0; padding: 10px 14px;
+  border: 1px solid var(--line); border-radius: 16px; background: var(--surface); color: var(--text);
+  text-align: left; cursor: pointer; touch-action: manipulation; -webkit-user-select: none; user-select: none;
+}
+.ks-result:active { background: var(--accent-soft); }
+.ks-result > .ic { color: var(--text-3); flex: none; }
+.ks-r-name { flex: 1 1 auto; min-width: 0; font-size: 20px; font-weight: 800; letter-spacing: -.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ks-hint { grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 22px 12px; border-radius: 14px; background: var(--surface-2); color: var(--text-2); font-size: 16px; text-align: center; }
+
+/* ---------- PIN ---------- */
+.ks-pin { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 4px 0 8px; }
+.ks-pin-ic { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 18px; background: var(--surface-2); color: var(--text-2); }
+.ks-pin-msg { font-size: 16px; color: var(--text-2); text-align: center; min-height: 23px; }
+.ks-pin-msg.err { color: var(--st-absent); font-weight: 650; }
+.ks-pin-dots { display: flex; gap: 18px; padding: 8px 0 6px; }
+.ks-pin-dot { width: 18px; height: 18px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--line-strong); transition: background .12s, box-shadow .12s; }
+.ks-pin-dot.on { background: var(--text); box-shadow: none; }
+.ks-pin-dots.shake { animation: ks-shake .45s cubic-bezier(.36,.07,.19,.97); }
+.ks-pin-dots.shake .ks-pin-dot.on { background: var(--st-absent); }
+@keyframes ks-shake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-9px); }
+  40%, 60% { transform: translateX(9px); }
+}
+.ks-pin-grid { display: grid; grid-template-columns: repeat(3, 76px); gap: 12px; justify-content: center; }
+.ks-pin-key {
+  display: grid; place-items: center; width: 76px; height: 76px; margin: 0; padding: 0;
+  border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--text);
+  font-size: 28px; font-weight: 650; cursor: pointer; touch-action: manipulation;
+  -webkit-user-select: none; user-select: none; transition: transform .1s, background-color .12s;
+}
+.ks-pin-key:active { transform: scale(.92); background: var(--surface-2); }
+.ks-pin-key.fn { border-color: transparent; background: transparent; font-size: 16px; color: var(--text-2); }
+@media (max-height: 640px) {
+  .ks-pin-grid { grid-template-columns: repeat(3, 64px); gap: 10px; }
+  .ks-pin-key { width: 64px; height: 64px; font-size: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v-kiosk .ks-tile, .v-kiosk .ks-corner, .ks-key, .ks-pin-key { transition: none; }
+  .ks-pin-dots.shake { animation: none; }
+}

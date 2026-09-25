@@ -1,0 +1,21 @@
+{
+  "name": "드럼 출석부",
+  "short_name": "드럼출석",
+  "description": "드럼 학원 이용권 출석 · QR 출석 · 서명 · 금액 합계",
+  "lang": "ko",
+  "dir": "ltr",
+  "id": "./",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F6F5F2",
+  "theme_color": "#F6F5F2",
+  "categories": ["education", "productivity", "business"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

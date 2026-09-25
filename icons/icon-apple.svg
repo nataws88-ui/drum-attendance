@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <title>드럼 출석부 (apple-touch)</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F0662A"/>
+      <stop offset="1" stop-color="#C73E0B"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".16"/>
+      <stop offset=".55" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <rect width="512" height="512" fill="url(#shine)"/>
+  <g transform="translate(256 256) scale(1.0) translate(-278 -272)">
+  <g>
+    <!-- sticks: orange halo first, then white stick -->
+    <g stroke-linecap="round" fill="none">
+      <path d="M150 96 L318 238" stroke="#D2440F" stroke-width="34"/>
+      <path d="M346 96 L178 238" stroke="#D2440F" stroke-width="34"/>
+      <path d="M150 96 L318 238" stroke="#FFFFFF" stroke-width="20"/>
+      <path d="M346 96 L178 238" stroke="#D2440F" stroke-width="34"/>
+      <path d="M346 96 L178 238" stroke="#FFFFFF" stroke-width="20"/>
+    </g>
+    <circle cx="146" cy="92" r="17" fill="#FFFFFF"/>
+    <circle cx="350" cy="92" r="17" fill="#FFFFFF"/>
+    <!-- snare drum -->
+    <path d="M100 262 V350 A148 42 0 0 0 396 350 V262 Z" fill="#FFFFFF"/>
+    <ellipse cx="248" cy="262" rx="148" ry="42" fill="#FFFFFF"/>
+    <ellipse cx="248" cy="262" rx="148" ry="42" fill="none" stroke="#D2440F" stroke-width="9"/>
+    <ellipse cx="248" cy="262" rx="126" ry="31" fill="#FFF1E8"/>
+    <path d="M100 302 A148 42 0 0 0 396 302" fill="none" stroke="#D2440F" stroke-width="7" stroke-opacity=".55"/>
+    <g stroke="#D2440F" stroke-width="8" stroke-linecap="round" stroke-opacity=".8">
+      <path d="M140 318 V372"/>
+      <path d="M196 330 V388"/>
+      <path d="M300 330 V388"/>
+      <path d="M356 318 V372"/>
+    </g>
+    <!-- check badge -->
+    <circle cx="384" cy="384" r="84" fill="#D2440F"/>
+    <circle cx="384" cy="384" r="70" fill="#FFFFFF"/>
+    <path d="M350 386 L374 410 L420 362" fill="none" stroke="#16A34A" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  </g>
+</svg>
